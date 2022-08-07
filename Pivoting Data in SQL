@@ -1,1 +1,27 @@
+## We have the format
+SELECT teams.conference AS conference,
+       players.year,
+       COUNT(1) AS players
+  FROM benn.college_football_players players
+  JOIN benn.college_football_teams teams
+    ON teams.school_name = players.school_name
+ GROUP BY 1,2
+ ORDER BY 1,2
 
+##Output format
+SELECT teams.conference AS conference,
+       count(players) AS total_players,
+       count(CASE WHEN year = 'FR' THEN 1 ELSE NULL END) AS fr,
+       COUNT(CASE WHEN year = 'SO' THEN 1 ELSE NULL END) AS so,
+       COUNT(CASE WHEN year = 'JR' THEN 1 ELSE NULL END) AS jr,
+       count(CASE WHEN year = 'SR' THEN 1 ELSE NULL END) AS sr
+ 
+          FROM benn.college_football_players players
+          JOIN benn.college_football_teams teams
+            ON teams.school_name = players.school_name
+       group by teams.conference
+       order by count(players) desc
+ 
+ 
+ 
+ 
